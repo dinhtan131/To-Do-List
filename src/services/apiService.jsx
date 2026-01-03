@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "./axiosCustomize.js";
 import { STATIC_TOKEN } from "./token.js";
 const createUserApi = (fullName, email, phone, password) => {
-    const URL_BACKEND = "http://localhost:8080/api/v1/user";
+    const URL_BACKEND = "/api/v1/user";
 
     const data = {
         fullName,
@@ -16,6 +16,15 @@ const createUserApi = (fullName, email, phone, password) => {
         }
     });
 };
+
+const fetchAllUserApi = () => {
+    const URL_BACKEND = "/api/v1/user";
+    return axios.get(URL_BACKEND, {
+        headers: {
+            Authorization: `Bearer ${STATIC_TOKEN}`
+        }
+    });
+}
 export {
-    createUserApi
+    createUserApi, fetchAllUserApi
 } 

@@ -1,12 +1,25 @@
 import UserForm from "../components/user/userForm"
 import UserTable from "../components/user/userTable"
-
+import { fetchAllUserApi } from '../services/apiService';
+import { useEffect, useState } from "react"
 const UserPage = () => {
+    const [dataUser, setDataUser] = useState([]);
+
+    useEffect(() => {
+        loadUser();
+        console.log("Run useEffect");
+    }, []);
+
+    const loadUser = async () => {
+        const res = await fetchAllUserApi()
+        console.log(res.data)
+        setDataUser(res.data.data);
+    }
     return (
         <div>
             <div>
-                <UserForm />
-                <UserTable />
+                <UserForm loadUser={loadUser} />
+                <UserTable dataUser={dataUser} />
             </div>
 
         </div>
