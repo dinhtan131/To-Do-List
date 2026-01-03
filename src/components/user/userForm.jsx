@@ -33,7 +33,6 @@ const UserForm = (props) => {
                 description: JSON.stringify(res.message)
             });
         }
-        console.log("Check", res.data)
     }
     return (
         <>
@@ -47,10 +46,12 @@ const UserForm = (props) => {
                         onClick={() => setIsModalOpen(true)}> Create User </Button>
                 </div>
                 <Modal
-                    title="Basic Modal"
+                    title="Create User"
                     open={isModalOpen}
                     onOk={() => handleSubmit()}
                     onCancel={() => { resetAndCloseModal() }}
+                    maskClosable={false}
+                    okText={"Create"}
                 >
                     <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
                         <div>

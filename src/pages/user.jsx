@@ -7,7 +7,6 @@ const UserPage = () => {
 
     useEffect(() => {
         loadUser();
-        console.log("Run useEffect");
     }, []);
 
     const loadUser = async () => {
@@ -19,7 +18,9 @@ const UserPage = () => {
         <div>
             <div>
                 <UserForm loadUser={loadUser} />
-                <UserTable dataUser={dataUser} />
+                <UserTable
+                    dataUser={dataUser}
+                    loadUser={loadUser} />
             </div>
 
         </div>
