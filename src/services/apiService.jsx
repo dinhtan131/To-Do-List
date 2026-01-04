@@ -39,14 +39,39 @@ const deleteUserApi = (id) => {
         }
     });
 };
-const fetchAllUserApi = () => {
-    const URL_BACKEND = "/api/v1/user";
+const fetchAllUserApi = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
     return axios.get(URL_BACKEND, {
         headers: {
             Authorization: `Bearer ${STATIC_TOKEN}`
         }
     });
 }
+const fetchAllBookApi = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/book?current=${current}&pageSize=${pageSize}`;
+    return axios.get(URL_BACKEND, {
+        headers: {
+            Authorization: `Bearer ${STATIC_TOKEN}`
+        }
+    });
+}
+const registerUserApi = (fullName, email, phone, password) => {
+    const URL_BACKEND = "/api/v1/user";
+
+    const data = {
+        fullName,
+        email,
+        password,
+        phone
+    };
+    console.log(STATIC_TOKEN)
+    return axios.post(URL_BACKEND, data, {
+        headers: {
+            Authorization: `Bearer ${STATIC_TOKEN}`
+        }
+    });
+};
 export {
-    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi
+    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi,
+    fetchAllBookApi
 } 

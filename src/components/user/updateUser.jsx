@@ -11,6 +11,7 @@ const UpdateUserModal = (props) => {
     const { isModalUpdateOpen, setisModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
     useEffect(() => {
         if (dataUpdate) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setId(dataUpdate._id)
             setFullName(dataUpdate.fullName);
             setPhone(dataUpdate.phone);

@@ -11,7 +11,7 @@ function App() {
       <main className="main-content">
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

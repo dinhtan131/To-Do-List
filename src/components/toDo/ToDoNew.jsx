@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 const ToDoNew = (props) => {
-    console.log("check point New:", props);
     const { addNewTodo } = props;
-    // addNewTodo("Tan");
     const [valueInput, setValueInput] = useState("Tan123")
 
     const handleClick = () => {
