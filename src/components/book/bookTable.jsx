@@ -1,8 +1,32 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Table, Popconfirm } from 'antd';
+import { Table, Popconfirm, notification } from 'antd';
+import { deleteBookApi } from '../../services/apiService'
+import ViewBookDetail from './viewBookDetail';
+
+import { useState } from "react"
 const BookTable = (props) => {
 
     const { dataBook, loadBook, current, pageSize, total, setPageSize, setCurrent } = props;
+    const [api, contextHolder] = notification.useNotification();
+    const [isModalViewOpen, setisModalViewOpen] = useState();
+    const [dataView, setDataView] = useState(null);
+    const handleDeleteBook = async (id) => {
+        const res = await deleteBookApi(id)
+        if (res.data) {
+            api.success({
+                message: "Delete Book",
+                description: "Delete Book thành công"
+            });
+            await loadBook();
+        }
+        else {
+            api.error({
+                message: "Error Delete Book",
+                description: JSON.stringify(res.message)
+            });
+        }
+    }
+
     const columns = [
         {
             title: 'STT',
@@ -15,19 +39,19 @@ const BookTable = (props) => {
         {
             title: 'Id',
             dataIndex: '_id',
-            // render: (_, record) => {
-            //     return (
-            //         <span
-            //             style={{ color: '#1677ff', cursor: 'pointer' }}
-            //             onClick={() => {
-            //                 // setDataView(record);
-            //                 // setisModalViewOpen(true);
-            //             }}
-            //         >
-            //             {record._id}
-            //         </span>
-            //     )
-            // }
+            render: (_, record) => {
+                return (
+                    <span
+                        style={{ color: '#1677ff', cursor: 'pointer' }}
+                        onClick={() => {
+                            setDataView(record);
+                            setisModalViewOpen(true);
+                        }}
+                    >
+                        {record._id}
+                    </span>
+                )
+            }
         },
         {
             title: 'Name',
@@ -48,30 +72,30 @@ const BookTable = (props) => {
         {
             title: 'Action',
             key: 'action',
-            // render: (_, record) => (
-            //     <div style={{ display: "flex", gap: "20px" }}>
-            //         <EditOutlined
-            //             onClick={() => {
-            //                 // setDataUpdate(record);
-            //                 // setisModalUpdateOpen(true);
-            //             }}
-            //             style={{ cursor: "pointer", color: "orange" }}
-            //         >Invite {record.name}</EditOutlined>
-            //         <Popconfirm
-            //             title="Delete User"
-            //             description="Are you sure to delete user?"
-            //             // onConfirm={() => handleDeleteUser(record._id)}
-            //             okText="Yes"
-            //             cancelText="No"
-            //             placement="left"
-            //         >
-            //             <DeleteOutlined
-            //                 style={{ cursor: "pointer", color: "red" }}
-            //             >Delete</DeleteOutlined>
-            //         </Popconfirm>
+            render: (_, record) => (
+                <div style={{ display: "flex", gap: "20px" }}>
+                    <EditOutlined
+                        onClick={() => {
+                            // setDataUpdate(record);
+                            // setisModalUpdateOpen(true);
+                        }}
+                        style={{ cursor: "pointer", color: "orange" }}
+                    >Invite {record.name}</EditOutlined>
+                    <Popconfirm
+                        title="Delete User"
+                        description="Are you sure to delete book?"
+                        onConfirm={() => handleDeleteBook(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="left"
+                    >
+                        <DeleteOutlined
+                            style={{ cursor: "pointer", color: "red" }}
+                        >Delete</DeleteOutlined>
+                    </Popconfirm>
 
-            //     </div>
-            // ),
+                </div>
+            ),
         },
     ];
     const onChange = (pagination) => {
@@ -89,6 +113,7 @@ const BookTable = (props) => {
 
     return (
         <>
+            {contextHolder}
             < Table
                 columns={columns}
                 dataSource={dataBook}
@@ -105,6 +130,12 @@ const BookTable = (props) => {
                         }
                     }}
                 onChange={onChange}
+            />
+            <ViewBookDetail
+                isModalViewOpen={isModalViewOpen}
+                setisModalViewOpen={setisModalViewOpen}
+                dataView={dataView}
+                setDataView={setDataView}
             />
         </>
     )

@@ -9,7 +9,6 @@ const createUserApi = (fullName, email, phone, password) => {
         password,
         phone
     };
-    console.log(STATIC_TOKEN)
     return axios.post(URL_BACKEND, data, {
         headers: {
             Authorization: `Bearer ${STATIC_TOKEN}`
@@ -64,14 +63,31 @@ const registerUserApi = (fullName, email, phone, password) => {
         password,
         phone
     };
-    console.log(STATIC_TOKEN)
     return axios.post(URL_BACKEND, data, {
         headers: {
             Authorization: `Bearer ${STATIC_TOKEN}`
         }
     });
 };
+const loginApi = (email, password) => {
+    const URL_BACKEND = "/api/v1/auth/login";
+
+    const data = {
+        username: email,
+        password: password,
+        delay: 2000
+    };
+    return axios.post(URL_BACKEND, data);
+};
+const deleteBookApi = (id) => {
+    const URL_BACKEND = `/api/v1/book/${id}`;
+    return axios.delete(URL_BACKEND, {
+        headers: {
+            Authorization: `Bearer ${STATIC_TOKEN}`
+        }
+    });
+};
 export {
-    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi,
-    fetchAllBookApi
+    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi, loginApi,
+    deleteBookApi, fetchAllBookApi
 } 

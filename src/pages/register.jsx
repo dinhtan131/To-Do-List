@@ -1,13 +1,12 @@
-import { Button, Form, Input, Card, notification } from "antd";
+import { Button, Form, Input, Card, notification, Divider } from "antd";
 import { registerUserApi } from "../services/apiService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
 
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
     const onFinish = async (values) => {
-        console.log("Register data:", values);
         const res = await registerUserApi(
             values.fullName,
             values.email,
@@ -100,6 +99,12 @@ const RegisterPage = () => {
                                 Register
                             </Button>
                         </Form.Item>
+                        <Divider />
+                        <div>Have Account?
+                            <Link to={"/login"}>
+                                Login Here
+                            </Link>
+                        </div>
                     </Form>
                 </Card>
             </div>

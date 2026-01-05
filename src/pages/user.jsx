@@ -7,10 +7,6 @@ const UserPage = () => {
     const [current, setCurrent] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState();
-    // const loadUser = async () => {
-    //     const res = await fetchAllUserApi()
-    //     setDataUser(res.data.result);
-    // }
     const loadUser = async () => {
         const res = await fetchAllUserApi(current, pageSize);
         if (res.data) {
