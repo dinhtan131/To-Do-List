@@ -4,7 +4,7 @@ import { AuthContext } from "../components/context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 const LoginPage = () => {
-
+    const [form] = Form.useForm();
     const { setUser } = useContext(AuthContext)
     const [api, contextHolder] = notification.useNotification();
     const [loading, setLoading] = useState("");
@@ -69,7 +69,11 @@ const LoginPage = () => {
                                 { required: true, message: "Please enter your password" },
                             ]}
                         >
-                            <Input.Password placeholder="Enter password" />
+                            <Input.Password placeholder="Enter password"
+                                onKeyDown={(event) => {
+                                    if (event.key == 'Enter')
+                                        form.submit()
+                                }} />
                         </Form.Item>
 
                         <Form.Item>

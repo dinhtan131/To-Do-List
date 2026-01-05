@@ -6,11 +6,11 @@ import { Children, useContext, useState } from 'react'
 import { AuthContext } from '../context/authContext';
 const Header = () => {
     const [current, setCurrent] = useState('mail');
+    const { user } = useContext(AuthContext)
     const onClick = e => {
         setCurrent(e.key);
     };
 
-    const { user } = useContext(AuthContext)
     console.log("Check Data User", user);
 
     const items = [

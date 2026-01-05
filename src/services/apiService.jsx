@@ -79,6 +79,10 @@ const loginApi = (email, password) => {
     };
     return axios.post(URL_BACKEND, data);
 };
+const getAccountApi = () => {
+    const URL_BACKEND = "/api/v1/auth/account";
+    return axios.get(URL_BACKEND);
+};
 const createBookApi = (data) => {
     const URL_BACKEND = "/api/v1/book";
 
@@ -98,6 +102,6 @@ const deleteBookApi = (id) => {
     });
 };
 export {
-    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi, loginApi,
+    createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi, loginApi, getAccountApi,
     createBookApi, deleteBookApi, fetchAllBookApi
 } 
