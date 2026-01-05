@@ -79,6 +79,16 @@ const loginApi = (email, password) => {
     };
     return axios.post(URL_BACKEND, data);
 };
+const createBookApi = (data) => {
+    const URL_BACKEND = "/api/v1/book";
+
+    return axios.post(URL_BACKEND, data, {
+        headers: {
+            Authorization: `Bearer ${STATIC_TOKEN}`
+        }
+    });
+};
+
 const deleteBookApi = (id) => {
     const URL_BACKEND = `/api/v1/book/${id}`;
     return axios.delete(URL_BACKEND, {
@@ -89,5 +99,5 @@ const deleteBookApi = (id) => {
 };
 export {
     createUserApi, updateUserApi, deleteUserApi, fetchAllUserApi, registerUserApi, loginApi,
-    deleteBookApi, fetchAllBookApi
+    createBookApi, deleteBookApi, fetchAllBookApi
 } 

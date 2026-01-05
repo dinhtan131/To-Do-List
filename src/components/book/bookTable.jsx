@@ -131,6 +131,7 @@ const BookTable = (props) => {
                     }}
                 onChange={onChange}
             />
+            <></>
             <ViewBookDetail
                 isModalViewOpen={isModalViewOpen}
                 setisModalViewOpen={setisModalViewOpen}

@@ -1,13 +1,17 @@
 // import './header.css'
-import { AuditOutlined, HomeOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { AuditOutlined, HomeOutlined, UsergroupAddOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Link, NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { Children, useContext, useState } from 'react'
+import { AuthContext } from '../context/authContext';
 const Header = () => {
     const [current, setCurrent] = useState('mail');
     const onClick = e => {
         setCurrent(e.key);
     };
+
+    const { user } = useContext(AuthContext)
+    console.log("Check Data User", user);
 
     const items = [
         {
@@ -26,6 +30,24 @@ const Header = () => {
             label: <Link to={"/books"}>Book</Link>,
             icon: <AuditOutlined />,
         },
+        ...(!user.id ? [{
+            key: 'login',
+            label: <Link to={"/login"}>Login</Link>,
+            icon: <LoginOutlined />,
+        }] : []),
+
+        ...(user.id ? [{
+            key: 'setting',
+            label: `Welcome User ${user.fullName}`,
+            icon: <AliwangwangOutlined />,
+            children: [
+                {
+                    label: 'Logout',
+                    key: 'logout'
+                }
+            ]
+        }] : []),
+
     ];
     return (
 

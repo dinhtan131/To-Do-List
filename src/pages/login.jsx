@@ -1,10 +1,11 @@
 import { Button, Form, Input, Card, notification, Divider } from "antd";
 import { loginApi } from "../services/apiService";
-
+import { AuthContext } from "../components/context/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 const LoginPage = () => {
 
+    const { setUser } = useContext(AuthContext)
     const [api, contextHolder] = notification.useNotification();
     const [loading, setLoading] = useState("");
     const navigate = useNavigate();
@@ -16,6 +17,8 @@ const LoginPage = () => {
                 message: "Login User",
                 description: "Login người dùng thành công"
             });
+            localStorage.setItem("access_token", res.data.data.access_token);
+            setUser(res.data.data.user);
             navigate("/");
         }
         else {

@@ -58,25 +58,6 @@ const ViewUserDetail = (props) => {
                     <span>Phone</span>
                     <Input value={phone} disabled />
                 </div>
-                <div>
-                    <label
-                        htmlFor="btnLoad"
-                        style={{
-                            display: "inline-block",
-                            padding: "8px 16px",
-                            backgroundColor: "#1677ff",
-                            color: "#fff",
-                            borderRadius: "6px",
-                            cursor: "pointer",
-                            fontWeight: 500
-                        }}
-                    >
-                        Upload
-                        <input type="file" hidden id="btnLoad" />
-                    </label>
-                </div>
-
-
             </div>
         </Modal>
     );
