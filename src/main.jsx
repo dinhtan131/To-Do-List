@@ -14,6 +14,7 @@ import ToDoAPP from './components/toDo/toDoApp.jsx';
 import ErrorPage from './pages/error.jsx';
 import { AuthWrapper } from './components/context/authContext.jsx';
 import PrivateRoute from './pages/privateRoute.jsx';
+import 'nprogress/nprogress.css'
 const router = createBrowserRouter([
   {
     path: "/",

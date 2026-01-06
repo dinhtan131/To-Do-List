@@ -4,8 +4,10 @@ import { deleteBookApi } from '../../services/apiService'
 import ViewBookDetail from './viewBookDetail';
 
 import { useState } from "react"
+import UpdateBookModal from './updateBook';
 const BookTable = (props) => {
-
+    const [isModalUpdateOpen, setisModalUpdateOpen] = useState();
+    const [dataUpdate, setDataUpdate] = useState(null);
     const { dataBook, loadBook, current, pageSize, total, setPageSize, setCurrent } = props;
     const [api, contextHolder] = notification.useNotification();
     const [isModalViewOpen, setisModalViewOpen] = useState();
@@ -76,8 +78,8 @@ const BookTable = (props) => {
                 <div style={{ display: "flex", gap: "20px" }}>
                     <EditOutlined
                         onClick={() => {
-                            // setDataUpdate(record);
-                            // setisModalUpdateOpen(true);
+                            setDataUpdate(record);
+                            setisModalUpdateOpen(true);
                         }}
                         style={{ cursor: "pointer", color: "orange" }}
                     >Invite {record.name}</EditOutlined>
@@ -137,6 +139,13 @@ const BookTable = (props) => {
                 setisModalViewOpen={setisModalViewOpen}
                 dataView={dataView}
                 setDataView={setDataView}
+            />
+            <UpdateBookModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setisModalUpdateOpen={setisModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
             />
         </>
     )

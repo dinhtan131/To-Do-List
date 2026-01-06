@@ -1,17 +1,38 @@
 // import './header.css'
 import { AuditOutlined, HomeOutlined, UsergroupAddOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Children, useContext, useState } from 'react'
 import { AuthContext } from '../context/authContext';
+import { logoutApi } from '../../services/apiService';
 const Header = () => {
     const [current, setCurrent] = useState('mail');
-    const { user } = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext)
+    const navigate = useNavigate();
+
     const onClick = e => {
         setCurrent(e.key);
+        if (e.key === 'logout') {
+            handleLogout();
+        }
     };
-
-    console.log("Check Data User", user);
+    const handleLogout = async () => {
+        const res = await logoutApi();
+        if (res.data) {
+            localStorage.removeItem("access_token");
+            setUser(
+                {
+                    email: "",
+                    phone: "",
+                    fullName: "",
+                    role: "",
+                    avatar: "",
+                    id: ""
+                }
+            )
+            navigate("/");
+        }
+    }
 
     const items = [
         {
